@@ -1,0 +1,130 @@
+body {
+    background-image: linear-gradient(#304176, #384e3a);
+}
+
+h1 {
+    font-weight: bolder;
+    font-family: cursive;
+    text-align: center;
+    border: 3px solid black;
+    padding: 20px;
+    width: fit-content;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#board-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+canvas {
+    cursor: pointer;
+}
+
+.selected {
+    stroke: yellow;
+    stroke-width: 3px;
+}
+
+#controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#player-options {
+    border: 2px solid black;
+    background-image: linear-gradient(#324566, #999999);
+    padding: 10px;
+}
+
+#players {
+    width: 40px;
+    font-size: 15px;
+    font-family: cursive;
+    height: 30px;
+}
+
+#pieces {
+    width: 47.2px;
+    font-family: cursive;
+    height: 35.2px;
+    font-size: 15px;
+}
+
+#start-game {
+    width: 100px;
+    height: 30px;
+    border-radius: 20px;
+    border: none;
+    font-family: cursive;
+}
+
+
+.clock-container {
+    width: 150px;
+    height: 150px;
+    border: 8px solid #5d7499;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    background: #201f1f;
+    box-shadow: 20px 18px 10px rgba(0, 0, 0, 0.2);
+}
+
+#timer {
+    font-size: 28px;
+    animation-name: colorChange;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+    font-weight: bold;
+}
+
+
+@keyframes colorChange{
+    0% {
+        color: white;
+    }
+    10%{
+        color: blue;
+    }
+    20%{
+        color: brown;
+    }
+    30%{
+        color: yellow;
+    }
+    40%{
+        color: green;
+    }
+    50%{
+        color: navy;
+    }
+    60%{
+        color: purple;
+    }
+    70%{
+        color: pink;
+    }
+    80%{
+        color: lightskyblue;
+    }
+    90%{
+        color: lightsteelblue;
+    }
+    100%{
+        color: lightcoral;
+    }
+
+}
