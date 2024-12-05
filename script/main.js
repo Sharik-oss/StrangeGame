@@ -66,7 +66,6 @@ function drawPyramid(grid) {
       graphics.on("pointertap", () => {
         console.log(`number: ${index + 1}`);
       });
-      
     }
   });
 }
@@ -75,52 +74,64 @@ const grid = [2, 3, 4, 11, 12, 11, 10, 9, 10, 11, 12, 11, 4, 3, 2];
 
 drawPyramid(grid);
 
-function startGame() {
-  if (players.value == 2) {
-    for (let i = 0; i < pieces.value; i++) {
-      const circle = firstPlayer[i];
-      circle.clear();
-      circle.beginFill(colors[0]);
-      circle.drawCircle(0, 0, 10);
-      circle.endFill();
-    }
-
-    for (let i = 0; i < pieces.value; i++) {
-      const circle = secondPlayer[i];
-      circle.clear();
-      circle.beginFill(colors[1]);
-      circle.drawCircle(0, 0, 10);
-      circle.endFill();
-    }
-  } else if (players.value == 3) {
-    for (let i = 0; i < pieces.value; i++) {
-      const circle = firstPlayer[i];
-      circle.clear();
-      circle.beginFill(colors[0]);
-      circle.drawCircle(0, 0, 10);
-      circle.endFill();
-    }
-
-    for (let i = 0; i < pieces.value; i++) {
-      const circle = secondPlayer[i];
-      circle.clear();
-      circle.beginFill(colors[1]);
-      circle.drawCircle(0, 0, 10);
-      circle.endFill();
-    }
-    for (let i = 0; i < pieces.value; i++) {
-      const circle = thirdPlayer[i];
-      circle.clear();
-      circle.beginFill(colors[2]);
-      circle.drawCircle(0, 0, 10);
-      circle.endFill();
-    }
+// Add this function to spawn players at specific positions
+function spawnPlayersAtPositions(playerIndex, pieces, positions) {
+    const circles = container.children; // Get all children in the container
+    const playerPieces = []; // Array to store the spawned player pieces
+  
+    positions.forEach((pos, i) => {
+      if (pos >= 0 && pos < circles.length) {
+        // Ensure the position is valid within the container's child range
+        const circle = circles[pos];
+        const piece = new PIXI.Graphics();
+  
+        piece.beginFill(colors[playerIndex % colors.length]); // Use player's color
+        piece.drawCircle(0, 0, circleRadius - 4); // Slightly smaller than the circle
+        piece.endFill();
+  
+        // Position the piece on the circle
+        piece.x = circle.x;
+        piece.y = circle.y;
+  
+        // Add interactivity to the piece
+        pieceInteraction(piece, container.children);
+  
+        // Add the piece to the container and the player's piece array
+        container.addChild(piece);
+        playerPieces.push(piece);
+      } else {
+        console.error(`Position ${pos} is out of bounds for container.children`);
+      }
+    });
+  
+    return playerPieces;
   }
-  // Add more logic for other player numbers...
+  
+  // Example usage
+  const player1Positions = [0, 1, 2]; // Specific indexes of circles for player 1
+  const player2Positions = [114, 113, 112]; // Specific indexes of circles for player 2
+  const player3Positions = [20, 32, 9]; // Specific indexes of circles for player 1
+  const player4Positions = [105, 94, 82]; // Specific indexes of circles for player 2
+  
+  const player1Pieces = spawnPlayersAtPositions(0, 3, player1Positions);
+  const player2Pieces = spawnPlayersAtPositions(1, 3, player2Positions);
+  const player3Pieces = spawnPlayersAtPositions(2, 3, player3Positions);
+  const player4Pieces = spawnPlayersAtPositions(3, 3, player4Positions);
+  
+  // Store all player pieces (optional for further game logic)
+  const allPlayers = [player1Pieces, player2Pieces];
+
+
+// Update the startGame function to use the allPlayers data
+function startGame() {
+  allPlayers.forEach((playerPieces, playerIndex) => {
+    playerPieces.forEach((piece) => {
+      piece.clear();
+      piece.drawCircle(0, 0, circleRadius - 4);
+      piece.endFill();
+    });
+  });
 }
-
-
-
 
 let currentPlayer = 0;
 let playerTimers = [];
